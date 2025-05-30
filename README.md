@@ -11,9 +11,11 @@ A collation of little tools I created to help me in the processing/intepreting o
 
 #### Dependencies
 
-This relies on the `matplotlib` and `dpkt` library, which can be installed using:
+This relies on the `matplotlib`, `cv2`, and `dpkt` library, which can be installed using:
 
 `pip install matplotlib`
+
+`pip install opencv-python`
 
 `pip install dpkt`
 
