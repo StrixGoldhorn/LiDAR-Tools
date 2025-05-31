@@ -4,7 +4,8 @@ A collation of little tools I created to help me in the processing/intepreting o
 ## LiDARs used
 | Brand         | LiDAR             | Tools                     | Desc      |
 |-----          |-----              |-----                      |-----      |
-| Robosense     | RS-LiDAR-16       | RS-LiDAR-16_PointCloud.py | Generates 3D point cloud from captured packets          |
+| RoboSense     | RS-LiDAR-16       | [RS-LiDAR-16_PointCloud.py](#rs-lidar-16_pointcloudpy) | Generates 3D point cloud from captured packets    |
+| SLAMTEC       | RPLiDAR S2        | [RPLiDAR-S2_generatePointCloud.py](#rplidar-s2_generatepointcloudpy) | Generates 2D point cloud from dumped data files    |
 
 ## RS-LiDAR-16_PointCloud.py
 [This tool](./RS-LiDAR-16_PointCloud.py) helps to generate 3D point cloud from packets captured from a Robosense RS-LiDAR-16.
@@ -38,3 +39,61 @@ This relies on the `matplotlib`, `cv2`, and `dpkt` library, which can be install
 4. Change `X_MAX`, `Y_MAX`, `Z_MAX` accordingly to fit data required.
 
 5. (Optioinal) Set `IGNORE_OUT_OF_RANGE` to `True` to reduce calculations required.
+
+## RPLiDAR-S2_generatePointCloud.py
+[This tool](./RPLiDAR-S2_PointCloud.py) helps to generate 2D point cloud from data dumps from SLAMTEC's FrameGrabber application of a SLAMTEC RPLiDAR S2.
+
+#### Dependencies
+
+This relies on the `matplotlib`, `numpy`, and `os` library, which can be installed using:
+
+`pip install matplotlib`
+
+`pip install numpy`
+
+`os` is pre-installed as part of the Python Standard Library
+
+#### What this does
+
+- Reads folder of user-provided data files dumped from the FrameGrabber application.
+
+- Generates point clouds from data files, saves to folder.
+
+#### How to use
+
+1. Upload dump files to folder, change READ_FOLDER_NAME to the folder name.
+
+2. Change FILENAME_ARR to each of the dumped data file name.
+
+3. Change MAX_DIST_SHOWN accordingly to fit data required.
+
+4. (Optional) Set DISPLAY to True to display each point cloud before saving if required.
+
+Assuming your dumped files are `control`, `50khz`, and `100khz`, your file structure should look like this.
+
+```
+main
+| --- folder_with_datafiles
+| | --- control
+| | --- 50khz
+| | --- 100khz
+|
+| --- RPLiDAR-S2_generatePointCloud.py
+```
+
+After running the program, your file structure will look like this
+
+```
+main
+| --- folder_with_datafiles
+|  | --- control
+|  | --- 50khz
+|  | --- 100khz
+|  |
+|  | --- Point Clouds
+|  |  | --- control.png
+|  |  | --- 50khz.png
+|  |  | --- 100khz.png
+|
+| --- RPLiDAR-S2_generatePointCloud.py
+```
