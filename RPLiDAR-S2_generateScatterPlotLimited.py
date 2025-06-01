@@ -50,8 +50,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-READ_FOLDER_NAME = "10v 1a 50cm copy"      # Folder with data files
-FILENAME_ARR = ["control", "50khz", "100khz", "150khz", "200khz"]   # Names of data files
+READ_FOLDER_NAME = "folder_with_datafiles"      # Folder with data files
+FILENAME_ARR = ["control", "50khz", "100khz"]   # Names of data files
 
 START_ANGLE_AFFECTED = 350   # Start angle of AFFECTED range to visualise
 END_ANGLE_AFFECTED = 360     # End angle of AFFECTED range to visualise
