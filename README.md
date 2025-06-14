@@ -5,6 +5,7 @@ A collation of little tools I created to help me in the processing/intepreting o
 | Brand         | LiDAR             | Tools                     | Desc      |
 |-----          |-----              |-----                      |-----      |
 | RoboSense     | RS-LiDAR-16       | [RS-LiDAR-16_PointCloud.py](#rs-lidar-16_pointcloudpy) | Generates 3D point cloud from captured packets    |
+| RoboSense     | RS-LiDAR-16       | [RS-LiDAR-16_PointCloudByLayers.py](#rs-lidar-16_pointcloudbylayerspy) | Generates point cloud, separated by layers, from captured packets    |
 | SLAMTEC       | RPLiDAR S2        | [RPLiDAR-S2_generatePointCloud.py](#rplidar-s2_generatepointcloudpy) | Generates 2D point cloud from dumped data files    |
 | SLAMTEC       | RPLiDAR S2        | [RPLiDAR-S2_generateAnglePlotLimited.py](#rplidar-s2_generateangleplotlimitedpy) | Generates visualisation of whether data exists at user-specified angle range  |
 | SLAMTEC       | RPLiDAR S2        | [RPLiDAR-S2_generateScatterPlotLimited.py](#rplidar-s2_generatescatterplotlimitedpy) | Generates scatter plot of points within user-specified angle range  |
@@ -42,6 +43,37 @@ This relies on the `matplotlib`, `cv2`, and `dpkt` library, which can be install
 4. Change `X_MAX`, `Y_MAX`, `Z_MAX` accordingly to fit data required.
 
 5. (Optioinal) Set `IGNORE_OUT_OF_RANGE` to `True` to reduce calculations required.
+
+## RS-LiDAR-16_PointCloudByLayers.py
+[This tool](./RS-LiDAR-16_PointCloudByLayers.py) helps to generate point cloud, separated by layers, from packets captured from a Robosense RS-LiDAR-16.
+
+#### Dependencies
+
+This relies on the `dpkt`, `matplotlib`, `math`, and `os` library, which can be installed using:
+
+`pip install dpkt`
+
+`pip install matplotlib`
+
+`math` and `os` are pre-installed as part of the Python Standard Library
+
+#### What this does
+
+- Reads user-provided pcap file.
+
+- Generates each layer of each user-defined frame (one frame every 360 degrees), saves to user-defined folder.
+
+#### How to use
+
+1. Upload pcap of LiDAR ethernet stream to same folder as this file
+
+2. Change PCAP_FILENAME to the pcap name.
+
+3. Change IMAGE_FOLDER_NAME to the folder name. Point cloud images will be saved under IMAGE_FOLDER_NAME/PointCloudByLayer/LayerXY, where XY is the layer number.
+
+4. Change X_START, X_END, Y_START, Y_END, Z_MAX accordingly to fit data required.
+
+5. Change TARGET_FRAME_START and TARGET_FRAME_END accordingly to choose desired frames
 
 ## RPLiDAR-S2_generatePointCloud.py
 [This tool](./RPLiDAR-S2generate_PointCloud.py) helps to generate 2D point cloud from data dumps from SLAMTEC's FrameGrabber application of a SLAMTEC RPLiDAR S2.
