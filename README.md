@@ -6,6 +6,7 @@ A collation of little tools I created to help me in the processing/intepreting o
 |-----          |-----              |-----                      |-----      |
 | RoboSense     | RS-LiDAR-16       | [RS-LiDAR-16_PointCloud.py](#rs-lidar-16_pointcloudpy) | Generates 3D point cloud from captured packets    |
 | RoboSense     | RS-LiDAR-16       | [RS-LiDAR-16_PointCloudByLayers.py](#rs-lidar-16_pointcloudbylayerspy) | Generates point cloud, separated by layers, from captured packets    |
+| RoboSense     | RS-LiDAR-16       | [RS-LiDAR-16_ReflectivityBySectors.py](#rs-lidar-16_reflectivitybysectorspy) | Generates graphs of reflectivity over time    |
 | SLAMTEC       | RPLiDAR S2        | [RPLiDAR-S2_generatePointCloud.py](#rplidar-s2_generatepointcloudpy) | Generates 2D point cloud from dumped data files    |
 | SLAMTEC       | RPLiDAR S2        | [RPLiDAR-S2_generateAnglePlotLimited.py](#rplidar-s2_generateangleplotlimitedpy) | Generates visualisation of whether data exists at user-specified angle range  |
 | SLAMTEC       | RPLiDAR S2        | [RPLiDAR-S2_generateScatterPlotLimited.py](#rplidar-s2_generatescatterplotlimitedpy) | Generates scatter plot of points within user-specified angle range  |
@@ -74,6 +75,80 @@ This relies on the `dpkt`, `matplotlib`, `math`, and `os` library, which can be 
 4. Change X_START, X_END, Y_START, Y_END, Z_MAX accordingly to fit data required.
 
 5. Change TARGET_FRAME_START and TARGET_FRAME_END accordingly to choose desired frames
+
+
+
+## RS-LiDAR-16_ReflectivityBySectors.py
+[This tool](./RS-LiDAR-16_ReflectivityBySectors.py) plots graph of ratio of points with user-defined reflectivity, to total amount of points, in a given sector.
+
+#### Dependencies
+
+This relies on the `dpkt`, `matplotlib`, `numpy`, `math`, and `os` library, which can be installed using:
+
+`pip install dpkt`
+
+`pip install matplotlib`
+
+`pip install numpy`
+
+`math` and `os` are pre-installed as part of the Python Standard Library
+
+#### What this does
+
+- Reads user-provided pcap file.
+
+- Plots graph of ratio of points with user-defined reflectivity, to total amount of points, in a given sector.
+
+- Number of sectors of a point cloud is user-defined, under `NUM_SECTORS`. Each sector will be NUM_SECTORS/360 degrees.
+
+- Threshold values are user-defined, under `ratios`.
+
+#### How to use
+
+1. Change TARGET_FRAMES to array of integers of frames to plot in graph
+
+2. Change ROOT_FOLDER_NAME to the folder name to where data will be stored.
+
+3. Upload pcap of LiDAR ethernet stream to same folder as this file, change PCAP_FILENAME to the pcap name.
+
+4. Change NUM_SECTORS to desired number of sectors
+
+5. Change ratios to 6 reflectivity values to set as threshold
+
+Assuming your pcap files is `capture.pcap`, your file structure should look like this.
+
+```
+main
+| --- ROOT_FOLDER_NAME
+| | --- capture.pcap
+|
+| --- RS-LiDAR-16_ReflectivityBySectors.py
+```
+
+After running the program, your file structure will look like this
+
+
+```
+main
+| --- ROOT_FOLDER_NAME
+| | --- capture.pcap
+| |
+| | --- DetectAttack
+| | | --- log000
+| | | --- log001
+| | | --- log002
+| | | --- log003
+| |
+| | --- ReflectivityRatioGraphs
+| | | --- sector000.png
+| | | --- sector001.png
+| | | --- sector002.png
+| | | --- sector003.png
+| |
+| --- RS-LiDAR-16_ReflectivityBySectors.py
+```
+
+
 
 ## RPLiDAR-S2_generatePointCloud.py
 [This tool](./RPLiDAR-S2generate_PointCloud.py) helps to generate 2D point cloud from data dumps from SLAMTEC's FrameGrabber application of a SLAMTEC RPLiDAR S2.
